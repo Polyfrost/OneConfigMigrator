@@ -31,8 +31,6 @@ for path, _, files in os.walk("."):
         if not (name.endswith(".java") or name.endswith(".kt")):
             continue
 
-        kept_lines = 0
-        total_lines = 0
         with open(dir,"r+") as f:
             new_f = f.readlines()
             f.seek(0)

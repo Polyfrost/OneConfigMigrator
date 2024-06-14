@@ -80,4 +80,14 @@ for path, _, files in os.walk("."):
             content = file.read().replace("TickDelay", "EventDelay.ticks").replace("tick(", "EventDelay.ticks(").replace("RenderTickDelay", "EventDelay.render").replace("renderTick(", "EventDelay.render(")
         add_import("org.polyfrost.oneconfig.api.event.v1.EventDelay")
 
+        with open(dir, "r") as file:
+            original_text = file.read()
+        with open(dir, "r+") as file:
+            content = file.read().replace("OneColor", "PolyColor")
+
+        with open(dir, "r") as file:
+            original_text = file.read()
+        with open(dir, "r+") as file:
+            content = file.read().replace("OneKeyBind", "Keybinder.Bind")
+
 input("Done! (press enter to exit)")

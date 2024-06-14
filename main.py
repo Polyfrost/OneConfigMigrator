@@ -35,16 +35,38 @@ for path, _, files in os.walk("."):
             new_f = f.readlines()
             f.seek(0)
             for line in new_f:
-                if "import gg.essential.universal" in line:
-                    f.write(line.replace("gg.essential.universal", "cc.polyfrost.oneconfig.libs.universal"))
-                elif "import gg.essential.elementa" in line:
-                    f.write(line.replace("gg.essential.elementa", "cc.polyfrost.oneconfig.libs.elementa"))
-                elif "import gg.essential.api" not in line:
+                if "import cc.polyfrost.oneconfig.config.core.OneColor" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.config.core.OneColor", "org.polyfrost.polyui.color.PolyColor"))
+                elif "import cc.polyfrost.oneconfig.config.core.OneKeyBind" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.config.core.OneKeyBind", "org.polyfrost.polyui.input.Keybinder.Bind"))
+                if "import cc.polyfrost.oneconfig.config" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.config", "org.polyfrost.oneconfig.api.config.v1"))
+                elif "import cc.polyfrost.oneconfig.utils.commands.annotations" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.utils.commands.annotations", "org.polyfrost.oneconfig.api.commands.v1.factories.annotated"))
+                elif "import cc.polyfrost.oneconfig.utils.commands" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.utils.commands", "org.polyfrost.oneconfig.api.commands.v1"))
+                elif "import cc.polyfrost.oneconfig.utils.hypixel" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.utils.hypixel", "org.polyfrost.oneconfig.api.hypixel.v1"))
+                elif "import cc.polyfrost.oneconfig.utils.Notifications" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.utils.Notifications", "org.polyfrost.oneconfig.api.ui.v1.notifications.Notifications"))
+                elif "import cc.polyfrost.oneconfig.utils" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.utils", "org.polyfrost.oneconfig.utils.v1"))
+                elif "import cc.polyfrost.oneconfig.platform" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.platform", "org.polyfrost.oneconfig.api.platform.v1"))
+                elif "import cc.polyfrost.oneconfig.events.event" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.events", "org.polyfrost.oneconfig.api.event.v1.events"))
+                elif "import cc.polyfrost.oneconfig.events" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.events", "org.polyfrost.oneconfig.api.event.v1"))
+                elif "import cc.polyfrost.oneconfig.libs.universal" in line:
+                    f.write(line.replace("cc.polyfrost.oneconfig.libs.universal", "org.polyfrost.universal"))
+                elif "import cc.polyfrost" in line:
+                    f.write(line.replace("cc.polyfrost", "org.polyfrost"))
+                else:
                     f.write(line)
                 
             f.truncate()
 
-input("Finished removing Essential imports.\n\nPress enter to start replacing essential methods.\n")
+input("Finished removing OneConfig V0 imports.\n\nPress enter to start replacing V0 methods.\n")
 
 for path, _, files in os.walk("."):
     for name in files:
@@ -55,42 +77,7 @@ for path, _, files in os.walk("."):
         with open(dir, "r") as file:
             original_text = file.read()
         with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getCommandRegistry().registerCommand", "CommandManager.INSTANCE.registerCommand").replace("EssentialAPI.getCommandRegistry().registerParser", "CommandManager.INSTANCE.addParser")
-        add_import("cc.polyfrost.oneconfig.utils.commands.CommandManager")
-   
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getNotifications().push", "Notifications.INSTANCE.send")
-        add_import("cc.polyfrost.oneconfig.utils.Notifications")
-
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getGuiUtil().openScreen", "GuiUtils.displayScreen").replace("GuiUtil.openScreen", "GuiUtils.displayScreen")
-        add_import("cc.polyfrost.oneconfig.utils.gui.GuiUtils")
-
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getGuiUtil().openedScreen", "UScreen.getCurrentScreen").replace("GuiUtil.openedScreen", "UScreen.getCurrentScreen")
-        add_import("cc.polyfrost.oneconfig.libs.universal.UScreen")
-
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getMinecraftUtil().isHypixel", "HypixelUtils.INSTANCE.isHypixel")
-        add_import("cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils")
-
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getMinecraftUtil().sendMessage", "UChat.chat")
-        add_import("cc.polyfrost.oneconfig.libs.universal.UChat")
-
-        with open(dir, "r") as file:
-            original_text = file.read()
-        with open(dir, "r+") as file:
-            content = file.read().replace("EssentialAPI.getShutdownHookUtil().register", "Runtime.getRuntime().addShutdownHook")
+            content = file.read().replace("TickDelay", "EventDelay.ticks").replace("tick(", "EventDelay.ticks(").replace("RenderTickDelay", "EventDelay.render").replace("renderTick(", "EventDelay.render(")
+        add_import("org.polyfrost.oneconfig.api.event.v1.EventDelay")
 
 input("Done! (press enter to exit)")
